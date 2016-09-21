@@ -1,0 +1,23 @@
+<template>
+
+  <div class="container">
+    <div class="row">
+
+      <h4 class="center-align">Contact</h4>
+      <h5 class="center-align">Found any bug? Have any suggestions?</h5>
+
+      <div class="row col s12">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">mode_edit</i>
+          <textarea id="icon_prefix2" class="materialize-textarea" value.bind="contactText"></textarea>
+          <label for="icon_prefix2">Found any bug? Have any suggestions?</label>
+
+          <button class="right-align" md-button click.delegate="sendContact()" id="sendContact" style="float: right; margin-top: 10px;">Enviar</button>
+
+          <p if.bind="sent" style="color: red; font-size: 1.3em;" class="center-align">Sent!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</template>

@@ -1,0 +1,106 @@
+<template>
+
+  <div class="task">
+    <div class="row">
+      <div class="feedbacks col s4" style="height:100vh; overflow-y: scroll; background-color: #e1f5fe;">
+        <div if.bind="isAuthenticated">
+          <h4 class="center-align">Feedbacks <a md-button="floating: true; large: true;" md-modal-trigger href="#modal-feedback"><i class="material-icons">add</i></a></h4>
+        </div>
+        <div if.bind="!isAuthenticated">
+          <h4 class="center-align">Feedbacks</h4>
+        </div>
+
+        <div if.bind="feedbacks.length == 0">
+          <h5 class="center-align">No feedback received yet!</h5>
+        </div>
+        <div if.bind="feedbacks.length > 0">
+          <ul md-collapsible="accordion: true;">
+            <li repeat.for="feedback of feedbacks" style="background-color: white;">
+              <div class="collapsible-header">
+                <i class="material-icons">grade</i>
+                <strong>Nota: ${feedback.score}</strong>
+                , por ${feedback.postedBy.name}
+
+                <button if.bind="isAuthenticated && feedback.postedBy._id == user._id" md-button class="red" click.delegate="deleteFeedback(feedback._id)">Delete feedback</button>
+              </div>
+              <div class="collapsible-body"><p>${feedback.comment}</p></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+        <div class="question-and-resources col s8">
+          <h3 class="center-align">Task ${audio.task.number} - ${audio.task.type}</h3>
+
+          <div if.bind="isAuthenticated && audio.postedBy == user._id" class="button-actions">
+            <button md-button class="red" click.delegate="deleteAudio(audio._id)">Delete speaking</button>
+          </div>
+
+          <ul md-collapsible>
+            <li if.bind="audio.task.reading">
+              <div class="collapsible-header"><i class="material-icons">library_books</i>Reading</div>
+              <div class="collapsible-body">
+                <p>
+                    ${audio.task.reading}
+                </p>
+              </div>
+            </li>
+            <li if.bind="audio.task.audio_url">
+              <div class="collapsible-header"><i class="material-icons">volume_up</i>Listen</div>
+              <div class="collapsible-body">
+                <p>
+                  <audio controls src="${audio.task.audio_url}"></audio>
+                </p>
+              </div>
+            </li>
+          </ul>
+
+          <h5 style="margin-top: 30px;">
+              ${audio.task.question}
+          </h5>
+
+          <div class="divider"></div>
+
+          <p>
+            <h5 style="margin-bottom: 10px;"><b>Resposta:</b></h5>
+            <audio controls src="http://localhost:3000/${audio._id}.wav" id="audioRecorded"></audio>
+          </p>
+        </div>
+    </div>
+  </div>
+
+  <div if.bind="isAuthenticated" id="modal-feedback" class="modal" ref="giveFeedbackModal">
+    <div class="modal-content">
+      <h4>Dar feedback</h4> 
+      <span><a href="https://www.ets.org/s/toefl/pdf/toefl_speaking_rubrics.pdf" target="_blank">Quais são os critérios de nota?</a></span>
+                
+      <p>
+        <div class="row">
+          <form class="col s12">
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">grade</i>
+                <input id="icon_prefix" type="number" min="0" max="4" class="validate" value.bind="scoreGiven">
+                <label data-error="grade not accepted" data-success="Yeah!" for="icon_prefix">Qual sua nota para esse speaking?</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="row col s12">
+                <div class="input-field col s12">
+                  <i class="material-icons prefix">mode_edit</i>
+                  <textarea id="icon_prefix2" class="materialize-textarea" value.bind="commentGiven"></textarea>
+                  <label for="icon_prefix2">Feedback</label>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button md-button="disabled: false;" click.delegate="giveFeedback()" id="giveFeedback">Enviar</button>
+              <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+            </div>
+          </form>
+        </div>
+      </p>
+    </div>
+  </div>
+
+</template>

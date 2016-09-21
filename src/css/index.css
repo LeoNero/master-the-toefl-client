@@ -1,0 +1,16 @@
+.nav-wrapper .logo{
+  margin-left:20px;
+  font-size:25px;
+}
+
+#container{
+  position: fixed;
+  overflow: hidden;
+}
+
+.section-audios {
+  background: white;
+  position: relative;
+  display: inline-block;
+  width:100%;
+}

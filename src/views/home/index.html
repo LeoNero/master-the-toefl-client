@@ -1,0 +1,37 @@
+<template>
+  <require from="../../components/footer-area"></require>
+
+  <section class="section-audios">
+    <div class="row">
+      <h3 class="center-align" if.bind="audios.length == 0">No speaking recorded yet!</h3>
+      <div if.bind="audios.length != 0" class="col s11 m6 l4" repeat.for="audio of audios">
+        <div class="card light-blue darken-3">
+         <div class="card-content white-text">
+            <span class="card-title">Task ${audio.task.number}</span>
+            <p>${audio.task.question}</p>
+
+            <div class="divider" style="margin-top: 5px; margin-bottom: 5px;"></div>
+
+            <p>
+              <strong>
+                Respondida por: 
+                  <span if.bind="audio.anonymous == 0">${audio.postedBy.name}</span>
+                  <span if.bind="audio.anonymous == 1">Anonymous</span>
+              </strong>
+            </p>
+          </div> 
+          <div class="card-action">
+            <a href="#" click.delegate="redirectToAudio(audio.shortId)">Dar feedback</a>
+          </div>
+        </div>    
+      </div>
+    </div>
+
+    <div class="center-align">
+      <md-pagination md-on-page-changed.delegate="onPageChanged($event)" md-pages.bind="totalPages" md-active-page.bind="activePage"></md-pagination>
+    </div>
+  </section>
+
+  <footer-area></footer-area>
+
+</template>

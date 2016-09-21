@@ -1,0 +1,101 @@
+<template>
+  <div>
+    <div class="step-description">
+      <h4 class="center-align">Let's practice speaking!</h4>
+    </div>
+
+    <div if.bind="stepOne" class="step-one container">
+      <div>
+        <span style="font-size: 1.3em;"><strong>First, select the task type you want:</strong></span>
+        <select md-select value.bind="selectedTaskType" change.delegate="onChangeTaskType()">
+          <option model.bind="null">Choose the type of the task...</option>
+          <option repeat.for="taskType of tasksType" model.bind="taskType">
+            ${taskType.number} - ${taskType.type}
+          </option>
+        </select>
+      </div>
+      <br>
+      <div if.bind="selectedTaskType">
+        <span style="font-size: 1.3em;"><strong>Good! Now, select the question you want:</strong></span>
+        <select md-select md-select.ref="selectTaskHTML" value.two-way="selectedTask">
+          <option model.bind="null">Choose a task...</option>
+          <option repeat.for="task of tasks" model.bind="task">
+            ${task.question}
+          </option>
+        </select>
+        <p if.bind="selectedTask" style="font-size: 1.1em;">Selected question: ${selectedTask.question}</p>
+      </div>
+      <div>
+        <md-checkbox md-checked.bind="postAnonymously">Do you want do post anonymously?</md-checkbox>
+      </div>
+      <button if.bind="selectedTask" md-button click.trigger="goToNextStep()" class="right-align" style="float: right; margin-top: 20px;">Next step =></button>
+    </div>
+
+
+    <div if.bind="stepTwo" class="step-two">
+      <div class="task">
+        <div class="row">
+          <div if.bind="selectedTask.reading || selectedTask.audio_url" class="feedbacks col s6" style="height:100vh; overflow-y: scroll; background-color: #e1f5fe;">
+            <div if.bind="selectedTask.reading" class="row">
+              <div class="col s12">
+                <div class="card blue">
+                  <div class="card-content white-text">
+                    <span class="card-title">READING</span>
+                    <p>${selectedTask.reading}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div if.bind="selectedTask.audio_url" class="row">
+              <div class="col s12">
+                <div class="card blue">
+                  <div class="card-content white-text">
+                    <span class="card-title">LISTENING</span>
+                    <p>
+                      <audio controls>
+                        <source src="${selectedTask.audio_url}">
+                      </audio>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class.bind="selectedTask.reading || selectedTask.audio_url ? '' : 'container'">
+            <div class="question col ${selectedTask.reading || selectedTask.audio_url ? 's6': 's12'}">
+              <h4 class="center-align">Task ${selectedTask.number} - ${selectedTask.type}</h4>
+              <h5 style="margin-top: 30px;">
+                ${selectedTask.question}
+              </h5>
+
+              <div class="divider"></div>
+
+              <div class="center-align">
+                <p style="font-size: 1.3em;">You have ${counter}s left</p>
+              </div>
+
+              <br>
+
+              <div class="row" class="center-align">
+                <div class="col s12 center-align">
+                  <button md-button="disabled: false;" id="record" click.trigger="startRecording()">Record</button>
+                  <button md-button="disabled: true;" id="reset" click.trigger="resetRecording()">Reset</button>
+                  <button md-button="disabled: true;" id="play" click.trigger="playRecording()">Stop and Play</button>
+                  <button md-button="disabled: true;" class="green" id="save" click.trigger="saveRecording()">Save!</button>
+                </div>
+              </div>
+            
+              <div class="row" if.bind="showPlayer">
+                <div class="col s12 center-align">
+                  <audio if.bind="showPlayer" controls src="" id="audioRecording"></audio>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>   
+    </div>
+  </div>
+</template>

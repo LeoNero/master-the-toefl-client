@@ -1,0 +1,35 @@
+<template>
+  <div class="container">
+    <div class="row">
+      
+      <div class="audios center-align">
+        <h4 if.bind="user.audios.length == 0">No speaking recorded yet!</h4>
+
+        <div if.bind="user.audios.length > 0">
+          <h4>Total of speaking recorded: ${user.audios.length}</h4>
+          <md-collection>
+            <div repeat.for="audio of user.audios">
+              <md-collection-item class="accent-text" click.delegate="goToSpeaking(audio.shortId)">${audio.task.question}</md-collection-item>
+            </div>
+          </md-collection>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="feedbacks center-align">
+        <h4 if.bind="user.feedbacks.length == 0">No feedback given yet!</h4>
+
+        <div if.bind="user.audios.length > 0">
+          <h4>Total of feedbacks given: ${user.feedbacks.length}</h4>
+          <md-collection>
+            <div repeat.for="feedback of user.feedbacks">
+              <md-collection-item class="accent-text" click.delegate="goToSpeaking(feedback.audio.shortId)">${feedback.comment}</md-collection-item>
+            </div>
+          </md-collection>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</template>
