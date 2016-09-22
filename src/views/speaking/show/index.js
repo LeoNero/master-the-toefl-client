@@ -97,17 +97,25 @@ export class Show {
           })
           .then(response => response.json())
           .then(data => {
-            console.log(data);
-
             $(self.giveFeedbackModal).closeModal();
             self.scoreGiven = null;
             self.commentGiven = '';
+
+            this.http
+              .fetch('api/user/change_pontuation', {
+                method: 'post',
+                body: json({user_id: self.user._id, type: 'add_point'})
+              })
+              .then(response => response.json())
+              .then(data => console.log(data));
 
             this.http.fetch('api/audio/' + self.shortId + '/feedbacks')
               .then(response => response.json())
               .then(data => {
                 this.feedbacks = data;
               });
+
+            this.router.navigateToRoute('show-speaking', { shortId: this.shortId}, {replace: true});
           });
       }
     }

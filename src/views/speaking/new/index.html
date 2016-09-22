@@ -1,5 +1,9 @@
 <template>
-  <div>
+  <div if.bind="user.points == 0">
+    <h4 class="center-align">You don't have enough points! Give feedback to get more!</h4>
+  </div>
+
+  <div if.bind="user.points > 0">
     <div class="step-description">
       <h4 class="center-align">Let's practice speaking!</h4>
     </div>

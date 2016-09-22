@@ -1,9 +1,10 @@
 import {inject} from 'aurelia-framework';
 import {AuthService} from 'aurelia-auth';
 import {BindingEngine} from 'aurelia-framework'; 
+import {EventAggregator} from 'aurelia-event-aggregator';
 import {Router}     from 'aurelia-router';
 
-@inject(AuthService, BindingEngine, Router)
+@inject(AuthService, BindingEngine, EventAggregator, Router)
 
 export class NavBar {
   _isAuthenticated = false;
@@ -12,9 +13,10 @@ export class NavBar {
 
   subscription = {};
 
-  constructor(auth, bindingEngine, router) {
+  constructor(auth, bindingEngine, eventAggregator, router) {
     this.router = router;
     this.auth = auth;
+    this.eventAggregator = eventAggregator;
     this._isAuthenticated = this.auth.isAuthenticated();
 
     if (this._isAuthenticated) {
@@ -33,6 +35,23 @@ export class NavBar {
       });
   }
 
+  navigationSuccess(event) {
+    let instruction = event.instruction; 
+
+    if (this.isAuthenticated) {
+      this.auth.getMe().then(data => {
+        this.user = data;
+      });
+    }
+  }
+
+  attached() {
+    this.subscriptionC = this.eventAggregator.subscribe(
+      'router:navigation:success',
+      this.navigationSuccess.bind(this));
+  }
+
+
   goToInitialPage() {
     this.router.navigateToRoute('home', {page: 1});
   }
@@ -50,5 +69,6 @@ export class NavBar {
 
   deactivate() {
     this.subscription.dispose();
+    this.subscriptionC.dispose();
   }
 }

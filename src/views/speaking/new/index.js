@@ -1,4 +1,5 @@
 import {inject}           from 'aurelia-framework';
+import {json}             from 'aurelia-fetch-client';
 import {CustomHttpClient} from '../../../customHttpClient';
 import {AuthService}      from 'aurelia-auth';
 import {Router}           from 'aurelia-router';
@@ -145,6 +146,15 @@ export class NewSpeaking {
           })
           .then(response => response.json())
           .then(data => {
+
+            self.http
+              .fetch('api/user/change_pontuation', {
+                method: 'post',
+                body: json({user_id: self.user._id, type: 'remove_point'})
+              })
+              .then(response => response.json())
+              .then(data => console.log(data));
+
             self.router.navigateToRoute('show-speaking', { shortId: data.shortId});
           });
 

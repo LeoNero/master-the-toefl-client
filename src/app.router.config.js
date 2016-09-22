@@ -15,7 +15,6 @@ export default class {
 
       config.map([
         { route: ['', 'home', 'home/:page'],  name: 'home',   moduleId: 'views/home/index',   nav: true },
-        { route: 'hidden',      name: 'hidden', moduleId: 'views/hidden/index', nav: true, title: 'Hidden!', auth: true },
         { route: 'logout',          name: 'logout',          moduleId: 'views/logout/index' },
         { route: 'speaking/new',    name: 'new-speaking', moduleId: 'views/speaking/new/index', title: 'New Speaking', auth: true },
         { route: 'speaking/:shortId',   name: 'show-speaking', moduleId: 'views/speaking/show/index' },

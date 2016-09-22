@@ -1,14 +1,23 @@
 import {HttpClient} from 'aurelia-fetch-client';
 import {inject} from 'aurelia-framework';
-import {AuthService} from 'aurelia-auth';
+import {AuthService} from 'aurelia-auth'
 
 @inject(AuthService)
 export class CustomHttpClient extends HttpClient {
+  baseUrl;
+
   constructor(auth) {
     super();
+
+    if (window.location.hostname === 'localhost') {
+      this.baseUrl = 'http://localhost:3000/';
+    } else {
+      this.baseUrl = 'http://api.masterthetoefl.xyz/';
+    }
+
     this.configure(config => {
       config
-        .withBaseUrl('http://localhost:3000/')
+        .withBaseUrl(this.baseUrl)
         //we call ourselves the interceptor which comes with aurelia-auth
         //obviously when this custom Http Client is used for services 
         //which don't need a bearer token, you should not inject the token interceptor

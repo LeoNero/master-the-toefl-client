@@ -1,5 +1,13 @@
+let baseUrl;
+
+if (window.location.hostname === 'localhost') {
+  baseUrl = 'http://localhost:3000/';
+} else {
+  baseUrl = 'http://api.masterthetoefl.xyz';
+}
+
 export default {
-  baseUrl: 'http://localhost:3000/',
+  baseUrl: baseUrl,
   httpInterceptor: true,
   tokenRoot: false,
   tokenName: 'token',
@@ -8,7 +16,7 @@ export default {
   authHeader: 'Authorization',
   authToken: 'Bearer',
   withCredentials: true,
-  loginRedirect: '/#/hidden',  
+  loginRedirect: '/#/home/1',  
   providers: {      
     facebook:{
       url: '/auth/facebook',
