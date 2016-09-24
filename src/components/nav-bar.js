@@ -3,6 +3,7 @@ import {AuthService} from 'aurelia-auth';
 import {BindingEngine} from 'aurelia-framework'; 
 import {EventAggregator} from 'aurelia-event-aggregator';
 import {Router}     from 'aurelia-router';
+import $                  from 'jquery';
 
 @inject(AuthService, BindingEngine, EventAggregator, Router)
 
@@ -49,6 +50,8 @@ export class NavBar {
     this.subscriptionC = this.eventAggregator.subscribe(
       'router:navigation:success',
       this.navigationSuccess.bind(this));
+
+    $(".button-collapse").sideNav();
   }
 
 

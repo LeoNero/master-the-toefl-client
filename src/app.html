@@ -1,13 +1,21 @@
 <template>
   <require from="materialize-css/css/materialize.css"></require>
   <require from="css/plyr.css"></require>
+  <require from="css/index.css"></require>
 
   <require from="./components/nav-bar"></require>
+  <require from="./components/footer-area"></require>
 
-  <div class="menu">
+  <header>
     <nav-bar></nav-bar>
-  </div>
+  </header>
 
-  <router-view></router-view>
+  <main>
+    <router-view></router-view>
+  </main>
+
+  <footer>
+    <footer-area></footer-area>
+  </footer>
 
 </template>

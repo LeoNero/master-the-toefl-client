@@ -1,6 +1,4 @@
 <template>
-  <require from="../../components/footer-area"></require>
-
   <section class="section-audios">
     <div class="row">
       <h3 class="center-align" if.bind="audios.length == 0">No speaking recorded yet!</h3>
@@ -14,24 +12,21 @@
 
             <p>
               <strong>
-                Respondida por: 
+                Answered by: 
                   <span if.bind="audio.anonymous == 0">${audio.postedBy.name}</span>
                   <span if.bind="audio.anonymous == 1">Anonymous</span>
               </strong>
             </p>
           </div> 
           <div class="card-action">
-            <a href="#" click.delegate="redirectToAudio(audio.shortId)">Dar feedback</a>
+            <a href="#" click.delegate="redirectToAudio(audio.shortId)">Give feedback</a>
           </div>
-        </div>    
-      </div>
+        </div> 
+      </div>  
     </div>
 
-    <div class="center-align">
+    <div if.bind="audios.length != 0" class="center-align">
       <md-pagination md-on-page-changed.delegate="onPageChanged($event)" md-pages.bind="totalPages" md-active-page.bind="activePage"></md-pagination>
-    </div>
+    </div> 
   </section>
-
-  <footer-area></footer-area>
-
 </template>

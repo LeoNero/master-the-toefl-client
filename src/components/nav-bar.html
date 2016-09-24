@@ -3,16 +3,30 @@
     <nav>
       <div class="nav-wrapper light-blue darken-1">
         <a href="" click.delegate="goToInitialPage()" class="brand-logo logo">Master the TOEFL</a>
+        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
         
         <ul if.bind="!isAuthenticated" class="right hide-on-med-and-down">
-          <li md-waves><a click.delegate="authenticate('facebook')">Sign in</a></li>
-          <li md-waves><a click.delegate="authenticate('facebook')">Sign up</a></li>
+          <li md-waves><a click.delegate="authenticate('facebook')">Sign in with Facebook</a></li>
         </ul>
 
         <ul if.bind="isAuthenticated" class="right hide-on-med-and-down">
-          <li md-waves><a>Minha pontuação: ${user.points}</a></li>
+          <li md-waves><a><b>Hi, ${user.name}!</b></a></li>
+          <li md-waves><a>Your score: ${user.points}</a></li>
           <li md-waves><a href="#/speaking/new" class="tooltipped" md-tooltip="position: bottom; text: Record speaking!"><i class="material-icons">mic_none</i></a></li>
-          <li><a md-dropdown="activates: dropdown-minha-conta">Minha conta<i class="material-icons right">arrow_drop_down</i></a></li>
+          <li><a md-dropdown="activates: dropdown-minha-conta">Your account<i class="material-icons right">arrow_drop_down</i></a></li>
+        </ul>
+
+        <ul if.bind="!isAuthenticated" class="side-nav" id="mobile-demo">
+          <li md-waves><a click.delegate="authenticate('facebook')">Sign in with Facebook</a></li>
+        </ul>
+
+        <ul if.bind="isAuthenticated" class="side-nav" id="mobile-demo">
+          <li md-waves><a><b>Hi, ${user.name}!</b></a></li>
+          <li md-waves><a>Your score: ${user.points}</a></li>
+          <li md-waves><a href="#/speaking/new">Record speaking</a></li>
+          <li><a href="#/profile/me">Your audios and feedbacks</a></li>
+          <li class="divider"></li>
+          <li><a href="#/logout">Logout</a></li>
         </ul>
 
       </div>
@@ -20,8 +34,8 @@
   </div>
 
   <ul id="dropdown-minha-conta" class="dropdown-content">
-    <li><a href="#/profile/me">Meus audios e feedbacks</a></li>
+    <li><a href="#/profile/me">Your audios and feedbacks</a></li>
     <li class="divider"></li>
-    <li><a href="#/logout">Sair</a></li>
+    <li><a href="#/logout">Logout</a></li>
   </ul>
 </template>
