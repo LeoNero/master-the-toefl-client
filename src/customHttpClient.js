@@ -12,7 +12,7 @@ export class CustomHttpClient extends HttpClient {
     if (window.location.hostname === 'localhost') {
       this.baseUrl = 'http://localhost:3000/';
     } else {
-      this.baseUrl = 'http://api.masterthetoefl.xyz/';
+      this.baseUrl = 'https://api.masterthetoefl.xyz/';
     }
 
     this.configure(config => {
