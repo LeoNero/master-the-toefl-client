@@ -3,7 +3,7 @@ let baseUrl;
 if (window.location.hostname === 'localhost') {
   baseUrl = 'http://localhost:3000/';
 } else {
-  baseUrl = 'http://api.masterthetoefl.xyz';
+  baseUrl = 'https://api.masterthetoefl.xyz';
 }
 
 export default {
