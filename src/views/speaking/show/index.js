@@ -15,6 +15,8 @@ export class Show {
 
   shortId = null;
 
+  urlAudio;
+
   constructor(http, authService, router) {
     this.http = http;
     this.authService = authService;
@@ -24,6 +26,13 @@ export class Show {
     this.audio = null;
     this.feedbacks = [];
     this.plyr = plyr;
+
+    if (window.location.hostname === 'localhost') {
+      this.urlAudio = 'http://localhost:3000/';
+    } else {
+      this.urlAudio = 'https://api.masterthetoefl.xyz/';
+    }
+
   }
 
   activate(params) {
