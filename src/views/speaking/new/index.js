@@ -127,6 +127,8 @@ export class NewSpeaking {
 
     if (!($("#save").hasClass("disabled"))) {
       Fr.voice.export((blob) => {
+        $("body").addClass("loading"); 
+
         let formData = new FormData();
 
         formData.append('file', blob);
@@ -155,6 +157,7 @@ export class NewSpeaking {
               .then(response => response.json())
               .then(data => console.log(data));
 
+            $("body").removeClass("loading"); 
             self.router.navigateToRoute('show-speaking', { shortId: data.shortId});
           });
 
