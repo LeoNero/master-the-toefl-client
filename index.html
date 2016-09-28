@@ -5,6 +5,8 @@
     <meta charset='utf-8'>
     <meta name='viewport' content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="src/css/loader.css" rel="stylesheet">
     <meta name="description" content="Master the TOEFL is the right place to practice your speaking and improve your TOEFL score!">
     <meta name="keywords" content="toefl, master the toefl, practice, practice speaking, speaking, test">
     <meta name="author" content="MasterTheToefl">
@@ -28,7 +30,13 @@
   </head>
 
   <body aurelia-app="main">
+    <div class="loader-pager">
+      <div class="loader"></div>
+      <p class="loader-msg">Loading...</p>
+    </div>
+
     <script src="scripts/vendor-bundle.js" data-main="aurelia-bootstrapper"></script>
+
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
